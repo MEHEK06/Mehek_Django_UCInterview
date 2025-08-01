@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cocktail Search</title>
+</head>
+<body>
+    <h1>Search for Cocktails</h1>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <h2>Results:</h2>
+        <ul>
+            {% for drink in results %}
+                <li>
+                    <a href="{% url 'cocktail_detail' drink.idDrink %}">{{ drink.strDrink }}
+                    <strong>{{ drink.strDrink }}</strong><br>
+                    <img src="{{ drink.strDrinkThumb }}" alt="{{ drink.strDrink }}" width="100"></a>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif form.is_bound %}
+        <p>No cocktails found for your query.</p>
+    {% endif %}
+</body>
+</html>
+

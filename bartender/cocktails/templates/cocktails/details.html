@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ drink.strDrink }}</title>
+</head>
+<body>
+    {% if drink %}
+        <h1>{{ drink.strDrink }} ({{ drink.strAlcoholic }})</h1>
+        <img src="{{ drink.strDrinkThumb }}" alt="{{ drink.strDrink }}" width="300">
+        
+        <h2>Instructions</h2>
+        <p>{{ drink.strInstructions }}</p>
+
+        <h3>Ingredients (first 3)</h3>
+        <ul>
+            {% for item in ingredients %}
+                <li>{{ item.ingredient }} - {{ item.measure }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Drink not found.</p>
+    {% endif %}
+</body>
+</html>
