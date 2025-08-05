@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import CocktailSearchForm
+from .models import database
 import requests
 
 def search_cocktails(request):
@@ -11,6 +12,10 @@ def search_cocktails(request):
         if form.is_valid():
             query = form.cleaned_data['query']
             search_type = form.cleaned_data['search_type']
+            cocktail, created = database.objects.get_or_create(name=query)
+            if not created:
+                cocktail.count += 1
+                cocktail.save()
 
             if search_type == 'name':
                 url = f"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={query}"
@@ -36,7 +41,11 @@ def cocktail_detail(request, drink_id):
             if ingredient:
                 ingredients.append({'ingredient': ingredient, 'measure': measure})
 
-    return render(request, 'detail.html', {'drink': drink, 'ingredients': ingredients})
+    return render(request, 'cocktails/details.html', {'drink': drink, 'ingredients': ingredients})
+
+def database_display(request):
+    order=database.objects.order_by('-count')[:10]
+    return render(request,'cocktails/popular_cocktails.html',{'order':order})
 
 
 
