@@ -10,12 +10,13 @@
         <button type="submit">Search</button>
     </form>
 
+
     {% if results %}
         <h2>Results:</h2>
         <ul>
             {% for drink in results %}
                 <li>
-                    <a href="{% url 'cocktail_detail' drink.idDrink %}">{{ drink.strDrink }}
+                    <a href="{% url 'cocktail_detail' drink.idDrink %}">
                     <strong>{{ drink.strDrink }}</strong><br>
                     <img src="{{ drink.strDrinkThumb }}" alt="{{ drink.strDrink }}" width="100"></a>
 
@@ -25,6 +26,9 @@
     {% elif form.is_bound %}
         <p>No cocktails found for your query.</p>
     {% endif %}
+<p>
+    <a href="{% url 'display' %}">View Most Searched Cocktails</a>
+</p>
 </body>
 </html>
 
