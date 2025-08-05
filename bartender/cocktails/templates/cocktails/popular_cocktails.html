@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Most Searched Cocktails</title>
+</head>
+<body>
+    <h1>Most Searched Cocktails</h1>
+    <ul>
+        {% for cocktail in order %}
+        <li>{{ cocktail.name }}: {{ cocktail.count }} searches</li>
+        {% empty %}
+        <li>No cocktail searches yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
